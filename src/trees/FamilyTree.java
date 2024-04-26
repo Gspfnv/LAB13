@@ -11,9 +11,9 @@ public class FamilyTree
     
     private static class TreeNode
     {
-        private String                    name;
-        private TreeNode                parent;
-        private ArrayList<TreeNode>        children;
+        private String name;
+        private TreeNode parent;
+        private ArrayList<TreeNode> children;
         
         
         TreeNode(String name)
@@ -22,12 +22,10 @@ public class FamilyTree
             children = new ArrayList<>();
         }
         
-        
         String getName()
         {
             return name;
         }
-        
         
         void addChild(TreeNode childNode)
         {
@@ -50,14 +48,15 @@ public class FamilyTree
             for (TreeNode child: children)
             {
             	TreeNode found = child.getNodeWithName(targetName);
+            	
                 if (found != null) 
                 {
                 	return found;
                 }
-            	// If child.getNodeWithName(targetName) returns a non-null node,
-                // then that's the node we're looking for. Return it.
             }
-            
+            // If child.getNodeWithName(targetName) returns a non-null node,
+            // then that's the node we're looking for. Return it.
+          
             // Not found anywhere.
             return null;
         }
@@ -70,7 +69,7 @@ public class FamilyTree
             ArrayList<TreeNode> ancestors = new ArrayList<>();
             TreeNode current = this;
 
-            // ?????  Collect ancestors of this TreeNode into the array list. HINT: going up
+            // Collect ancestors of this TreeNode into the array list. HINT: going up
             // the nodes of a tree is like traversing a linked list. If that isn’t clear,
             // draw a tree, mark any leaf node, and then mark its ancestors in order from
             // recent to ancient. Expect a question about this on the final exam.
@@ -79,6 +78,7 @@ public class FamilyTree
             	 ancestors.add(current.parent);
             	 current = current.parent;
              }
+             Collections.reverse(ancestors);
 
             return ancestors;
         }
@@ -101,15 +101,13 @@ public class FamilyTree
     }
 
 	private TreeNode root;
-	//
 	// Displays a file browser so that user can select the family tree file.
-	//
+	
 	
 	public FamilyTree() throws IOException, TreeException
 	{
 		// User chooses input file. This block doesn't need any work.
-		FileNameExtensionFilter filter = 	
-			new FileNameExtensionFilter("Family tree text files", "txt");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Family tree text files", "txt");
 		
 		File dirf = new File("data");
 		if (!dirf.exists())
@@ -133,11 +131,8 @@ public class FamilyTree
 		fr.close();
 	}
 	
-	
-	//
 	// Line format is "parent:child1,child2 ..."
 	// Throws TreeException if line is illegal.
-	//
 	private void addLine(String line) throws TreeException
 	{
 		// Extract parent and array of children.
